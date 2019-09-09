@@ -1,0 +1,46 @@
+<form @fadeAnimation class="regForm">
+    <div class="close-icon" (click)="close()">&times;</div>
+    <div class="tab">
+        <h3>{{config.data.vehicleId}}</h3>
+        <label>{{vehicle.company}} &nbsp; {{vehicle.model}}</label>
+        <div>
+            <div>
+                <label>Daily Running(Kilometers) </label>
+                <input type="text" [(ngModel)]="vehicle.dailyRunningInKM" name="dailyRunningInKM" id="dailyRunningInKM"
+                    class="tex-tbox">
+            </div>
+        </div>
+    </div>
+    <div class="tab" style="margin: inherit;">
+        <table class="schedule-table">
+            <tr>
+                <th>Task Name</th>
+                <th>Change in Every(km)</th>
+                <th>Last Changed Date</th>
+                <th>Notify</th>
+            </tr>
+            <tr *ngFor="let schedule of vehicle.partMaintenanceTask;let i=index">
+                <td>{{schedule.taskName}}</td>
+                <td>{{schedule.changeAfter}}</td>
+                <td>
+                    <input type="date" [(ngModel)]="vehicle.partMaintenanceTask[i].lastChangedDate"
+                        id="lastChangedDate{{i}}" name="lastChangedDate{{i}}" class="padding-style">
+                </td>
+                <td>
+                    <select class="padding-styles" id="notify{{i}}" [(ngModel)]="vehicle.partMaintenanceTask[i].notify"
+                        name="notify{{i}}">
+                        <option value="Y"> Yes </option>
+                        <option value="N"> No </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div style="overflow:auto;margin-top:5px;">
+        <div style="float:right;">
+            <button type="button" class="save-button" (click)="update()">Save</button>
+        </div>
+    </div>
+
+</form>

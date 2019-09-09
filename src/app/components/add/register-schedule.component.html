@@ -1,0 +1,107 @@
+<form @addAnimation id="regForm" #regForm="ngForm">
+    <div class="close-icon" (click)="close()">&times;</div>
+
+    <div class="tab" #registrationTab style="width: 600px;">
+        <h2>Vehicle Information </h2>
+        <div [ngClass]="['text-label']">
+            <label>Vehicle Number *</label>
+        </div>
+        <div>
+            <input type="text" [(ngModel)]="vehicleInfoTo.vehicleNumber" name="vehicleNumber" id="vehicleNumber"
+                placeholder="vehicle number"
+                [ngClass]="{'input-text':true,'is-error': vehicleNumber.invalid && (vehicleNumber.dirty || vehicleNumber.touched)}"
+                required pattern="[A-Za-z]{2}[0-9]{2}[A-Za-z]{2}[0-9]{4}" #vehicleNumber="ngModel">
+            <div [ngClass]="['text-label']">
+                <div *ngIf="vehicleNumber.errors && (vehicleNumber.dirty || vehicleNumber.touched)"
+                    [ngClass]="['error-text']">
+                    Vehicle number should in format AB04CD1234
+                </div>
+            </div>
+        </div>
+        <div [ngClass]="['text-label']">
+            <label>Daily Running(Kilometers) *</label>
+        </div>
+        <div>
+            <input type="text" [(ngModel)]="vehicleInfoTo.dailyRunningInKM" name="dailyRunningInKM" id="dailRunningAvg"
+                placeholder="Daily running in kilometers"
+                [ngClass]="{'input-text':true,'is-error': dailyRnning.invalid && (dailyRnning.dirty || dailyRnning.touched)}"
+                required pattern="[1-9]{1}[0-9]{0,2}" #dailyRnning="ngModel">
+            <div *ngIf="dailyRnning.errors && (dailyRnning.dirty || dailyRnning.touched)" [ngClass]="['error-text']">
+                Minimum 1 and max 999 allowed
+            </div>
+        </div>
+        <div [ngClass]="['text-label']">
+            <label>Vehicle Company *</label>
+        </div>
+        <div>
+            <select id="vehicleCompany" (change)="fetchModel()" [(ngModel)]="vehicleInfoTo.company" name="company"
+                #vcompany="ngModel" required
+                [ngClass]="{'select':true,'is-error': vcompany.invalid && (vcompany.dirty || vcompany.touched)}">
+                <option *ngFor="let company of companyList" value="{{company.vechileCompanyName}}">
+                    {{company.vechileCompanyName}}</option>
+            </select>
+            <div *ngIf="vcompany.errors && (vcompany.dirty || vcompany.touched)" [ngClass]="['error-text']">
+                Please choose a value
+            </div>
+        </div>
+        <div [ngClass]="['text-label']">
+            <label>Vehicle Model *</label>
+        </div>
+        <div>
+            <select id="vehicleModel" [(ngModel)]="vehicleInfoTo.model" name="model" #vmodel="ngModel" required
+                [ngClass]="{'select':true,'is-error': vmodel.invalid && (vmodel.dirty || vmodel.touched)}">
+                <option *ngFor="let model of modelList" value="{{model.vechileModelName}}">
+                    {{model.vechileModelName}}
+                </option>
+            </select>
+            <div *ngIf="vmodel.errors && (vmodel.dirty || vmodel.touched)" [ngClass]="['error-text']">
+                Please choose a value
+            </div>
+        </div>
+    </div>
+    <div class="tab" #registrationTab>
+        <h2>Schedule Information</h2>
+        <table>
+            <tr>
+                <th>Task Name</th>
+                <th>Change in Every(km)</th>
+                <th>Last Changed Date</th>
+                <th>Notify</th>
+            </tr>
+            <tr *ngFor="let schedule of vehicleInfoTo.partMaintenanceTask;let i=index">
+                <td>{{schedule.taskName}}</td>
+                <td>{{schedule.changeAfter}}</td>
+                <td><input type="date" [(ngModel)]="vehicleInfoTo.partMaintenanceTask[i].lastChangedDate"
+                        name="lastChangedDate{{i}}" id="lastChangedDate{{i}}" required #lchangedate="ngModel"
+                        [ngClass]="{'select':true,'is-error': lchangedate.invalid && (lchangedate.dirty || lchangedate.touched)}"
+                        dateValidator>
+                    <div *ngIf="lchangedate.errors && (lchangedate.dirty || lchangedate.touched)"
+                        [ngClass]="['error-text']">
+                        Future or Empty date not alloweds
+                    </div>
+                </td>
+                <td>
+                    <select id="notify{{i}}" [(ngModel)]="vehicleInfoTo.partMaintenanceTask[i].notify" name="notify{{i}}"
+                        [ngClass]="['select']">
+                        <option value="Y"> Yes </option>
+                        <option value="N"> No </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="overflow:auto;margin: 10px;">
+        <div style="float:right;">
+            <button type="button" id="prevBtn" (click)="changeStep(-1)" #prevBtn>Previous</button>
+            <button type="button" id="nextBtn" *ngIf="!enableSubmit" [disabled]="regForm.invalid"
+                (click)="changeStep(1)">Next</button>
+            <button type="button" id="nextBtn" *ngIf="enableSubmit" [disabled]="regForm.invalid"
+                (click)="saveSchedule()">Save</button>
+        </div>
+    </div>
+    <!-- Circles which indicates the steps of the form: -->
+    <div style="text-align:center;margin-top:4px;">
+        <span class="step" #circle></span>
+        <span class="step" #circle></span>
+    </div>
+</form>

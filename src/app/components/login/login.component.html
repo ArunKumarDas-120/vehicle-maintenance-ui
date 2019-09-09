@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <form id="signinForm" class="col-25" #signInForm="ngForm">
+      <h3>SignIn</h3>
+      <label for="fname"> User Name</label>
+      <input class="text" [(ngModel)]="loginForm.userName" type="text" id="userName" name="userName" placeholder="Enter user name"
+        #suserName="ngModel" required>
+      <label for="fname"> Password </label>
+      <input class="text" [(ngModel)]="loginForm.password" type="password" id="password" name="password"
+        placeholder="Enter Password" #spass="ngModel" required>
+      <input type="button" value="SignIn" class="signin-btn btn" (click)="login(signInForm.value)"
+        [disabled]="signInForm.invalid">
+    </form>
+    <form id="registerForm" class="col-50" #registerForm="ngForm">
+      <h3>SignUp</h3>
+      <div>
+        <label>FirstName</label>
+        <input  [(ngModel)]="signUpForm.user.firstName" type="text" id="firstName" name="firstName"
+          placeholder="Eneter FirstName" #sfirstName="ngModel" required pattern="[a-zA-z]+"
+          [ngClass]="{'text':true,'is-error':sfirstName.invalid && (sfirstName.dirty || sfirstName.touched)}">
+        <div *ngIf="sfirstName.errors && (sfirstName.dirty || sfirstName.touched)" [ngClass]="['error-text']">
+          Characters without space is allowed
+        </div>
+      </div>
+      <div>
+        <label>LastName</label>
+        <input  [(ngModel)]="signUpForm.user.lastName" type="text" id="lastName" name="lastName"
+          placeholder="Eneter LastName" #slastName="ngModel" required pattern="[a-zA-z]+"
+          [ngClass]="{'text':true,'is-error':slastName.invalid && (slastName.dirty || slastName.touched)}">
+        <div *ngIf="slastName.errors && (slastName.dirty || slastName.touched)" [ngClass]="['error-text']">
+          Characters without space is allowed
+        </div>
+      </div>
+      <div>
+        <label>Email</label>
+        <input [(ngModel)]="signUpForm.user.userEmail" type="text" id="email" name="email" placeholder="Email"
+          #suserEmail="ngModel" required pattern="[a-zA-Z0-9_-]+[@][a-zA-Z]+([.][a-zA-Z]+)+"
+          [ngClass]="{'text':true,'is-error':suserEmail.invalid && (suserEmail.dirty || suserEmail.touched)}">
+        <div *ngIf="suserEmail.errors && (suserEmail.dirty || suserEmail.touched)" [ngClass]="['error-text']">
+          Email format is not correct
+        </div>
+      </div>
+      <div>
+        <label>UserName</label>
+        <input  [(ngModel)]="signUpForm.userCredential.userName" type="text" id="uname" name="userName"
+          placeholder="Enter user name" #puserName="ngModel" required pattern="[a-zA-Z0-9_-]+"
+          [ngClass]="{'text':true,'is-error':puserName.invalid && (puserName.dirty || puserName.touched)}">
+        <div *ngIf="puserName.errors && (puserName.dirty || puserName.touched)" [ngClass]="['error-text']">
+          allowed character a-z 0-9 _ -
+        </div>
+      </div>
+      <div>
+        <label>Password</label>
+        <input  [(ngModel)]="signUpForm.userCredential.password" type="password" id="pass" name="password"
+          placeholder="Enter password" #ppassword="ngModel" required pattern="[a-zA-Z0-9_-]{4,20}"
+          [ngClass]="{'text':true,'is-error':ppassword.invalid && (ppassword.dirty || ppassword.touched)}">
+        <div *ngIf="ppassword.errors && (ppassword.dirty || ppassword.touched)" [ngClass]="['error-text']">
+          allowed character a-z 0-9 _ - Minimum length 4 and max 20
+        </div>
+      </div>
+      <input type="button" value="SignUp" class="signup-btn btn" (click)="register()"
+        [disabled]="registerForm.invalid">
+    </form>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="qwerty">
+  <div class="content-width">
+    <div class="header">
+      <div class="header-right">
+        <a class="active" (click)="registerVehicleUI()">Add</a>
+      </div>
+    </div>
+    <div [ngClass]="{'flex':true}">
+      <section [ngClass]="{'content-align':true}" *ngFor="let vehicle of listOfVehicles">
+        <div class="header">
+		<span class="info" >{{vehicle.vehicleNumber}}</span>
+          <div class="header-right">
+            <a class="active" (click)="editVechicleServiceUI(vehicle.vehicleNumber)">Edit</a>
+			      <a class="delete" (click)="removeSchedule(vehicle.vehicleNumber,vehicle.userId)">Delete</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="container">
+            <h5 *ngFor="let schedule of vehicle.partMaintenanceTask">
+              <b>{{schedule.taskName}}</b><span>{{schedule.nextChangeDate}}</span></h5>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.col-25 {
+  flex: 35%;
+}
+
+.col-50 {
+  flex: 50%;
+}
+
+.col-75 {
+  flex: 75%;
+}
+
+.col-25, .col-50, .col-75 {
+  padding: 0 16px;
+}
+
+.container {
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.text {
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  border: none;
+}
+
+label {
+  margin-bottom: 5px;
+  display: block;
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.signup-btn {
+  width: 100%;
+}
+
+.signin-btn {
+  width: 100%;
+}
+
+.btn:hover:not([disabled]) {
+  background-color: #45a049;
+}
+
+:disabled {
+  background-color: #666666;
+  color: #cccccc;
+}
+
+.is-error {
+  background-color: rgba(421, 17, 0, 0.2);
+}
+
+.error-text {
+  font-size: 12px;
+  color: rgba(250, 70, 46, 0.801);
+}
