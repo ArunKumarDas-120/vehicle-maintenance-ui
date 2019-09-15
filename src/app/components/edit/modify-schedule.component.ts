@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from 'src/app/modal/modal.service';
-import { ModalData } from 'src/app/modal/modal-data';
-import { VehicleScheduleService } from 'src/app/service/vehicle-schedule.service';
-import { VehicleInfoTo } from 'src/app/model/vehicle-info';
-import { ToastService } from '../toast/toast.service';
+import { ModalService } from '../../modal/modal.service';
+import { ModalData } from '../../modal/modal-data';
+import { VehicleScheduleService } from '../../service/vehicle-schedule.service';
+import { VehicleInfoTo } from '../../model/vehicle-info';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { SharedDataService } from 'src/app/service/share-data.service';
+import { SharedDataService } from '../../service/share-data.service';
+import { MessageService } from '../../service/message.service';
 
 @Component({
   selector: 'app-modify-schedule',
@@ -30,7 +30,7 @@ export class ModifyScheduleComponent implements OnInit {
   constructor(private modalService: ModalService,
     private config: ModalData,
     private scheduleService: VehicleScheduleService,
-    private toastService: ToastService,
+    private messageService: MessageService,
     private sharedDataService: SharedDataService) {
     this.vehicle = new VehicleInfoTo();
   }
@@ -39,16 +39,16 @@ export class ModifyScheduleComponent implements OnInit {
     this.scheduleService.getScheduleInfoForVehicle(this.config.data.vehicleId).subscribe((data: VehicleInfoTo) => {
       this.vehicle = data;
     }, (error: any) => {
-      this.toastService.show(error.status, "error");
+      this.messageService.handleHttpError(error);
     });
   }
 
   public update(): void {
     this.scheduleService.saveSchedule(this.vehicle).subscribe((data: VehicleInfoTo) => {
-      this.toastService.show('Updation Successfull', "info");
+      this.messageService.showMessage('Information','Updation Successfull', "info");
       this.sharedDataService.publish(data);
     }, (error: any) => {
-      this.toastService.show(error.status, "error");
+      this.messageService.handleHttpError(error);
     });
   }
 

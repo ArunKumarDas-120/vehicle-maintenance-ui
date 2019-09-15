@@ -1,0 +1,35 @@
+.modal {
+    min-width: 250px;
+    margin-left: 30%;
+    color: white;
+    position: fixed;
+    z-index: 99999999999;
+    width: 30%;
+    bottom: 30px;
+}
+.modal-header {
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.modal-body {
+    padding: 2px 16px;
+    border: 1px solid #3333;
+    border-top: none;
+}
+
+.message-text {
+    padding: 5px;
+    font-size: 15px;
+}
+
+.info {
+    background-color: rgba(0, 173, 72);
+}
+
+.error {
+    background-color: rgba(250, 0, 30);
+}

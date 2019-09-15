@@ -7,7 +7,8 @@ import { VehicleScheduleService } from '../../service/vehicle-schedule.service';
 import { ActivatedRoute } from '@angular/router';
 import { SharedDataService } from '../../service/share-data.service';
 import { Subscription } from 'rxjs';
-import { ToastService } from '../toast/toast.service';
+import { HttpErrorHandlerService } from '../../service/http-error-handler.service';
+import { MessageService } from '../../service/message.service';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private scheduleService: VehicleScheduleService,
     private route: ActivatedRoute,
     private sharedDataService: SharedDataService,
-    private toastService: ToastService) { }
+    private messageService: MessageService,
+    private errorService: HttpErrorHandlerService) { }
 
   ngOnInit() {
     this.init();
@@ -45,10 +47,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   public removeSchedule(vehicleNumber: string, userId: number) {
     this.scheduleService.removeSchedule(vehicleNumber, userId).subscribe((data: VehicleInfoTo) => {
       this.sharedDataService.publish(data);
-      this.toastService.show("Remove Sucessfully", "info");
+      this.messageService.showMessage('Information',"Remove Sucessfully", "info");
     },(error: any) =>{
-		console.log(error);
-      this.toastService.show("Error", "error");
+      this.messageService.handleHttpError(error);
     });
   }
 
@@ -56,6 +57,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.scheduleService.getAllSchedule(this.route.snapshot.paramMap.get('id')).subscribe((data: VehicleInfoTo[]) => {
       this.listOfVehicles.length = 0;
       this.listOfVehicles.push(...data);
+    },(error: any)=>{
+      this.errorService.handleError(error);
     });
   }
 }

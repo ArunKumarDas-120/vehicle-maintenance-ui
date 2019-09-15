@@ -14,14 +14,12 @@ import { ModifyScheduleComponent } from './components/edit/modify-schedule.compo
 import { ToastComponent } from './components/toast/toast.component';
 import { DateValidator } from './validator/date-validator.directive';
 import { LoginComponent } from './components/login/login.component';
-
-
-
+import { MessageComponent } from './components/message/message.component';
 
 @NgModule({
   declarations: [AppComponent, RegisterScheduleComponent,
     HomeComponent, ModifyScheduleComponent,
-    ToastComponent, DateValidator, LoginComponent],
+    ToastComponent, DateValidator, LoginComponent, MessageComponent],
   imports: [BrowserModule, AppRoutingModule,
     HttpClientModule, FormsModule,
     ModalModule, BrowserAnimationsModule],

@@ -8,10 +8,11 @@ import { Notify } from '../../model/notify.enum';
 import { ModalService } from '../../modal/modal.service';
 import { VehicleScheduleService } from '../../service/vehicle-schedule.service';
 import { VehicleInfoTo } from '../../model/vehicle-info';
-import { ToastService } from '../toast/toast.service';
-import { StorageService } from '../../service/storage.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SharedDataService } from '../../service/share-data.service';
+import { ToastService } from '../toast/toast.service';
+import { StorageService } from '../../service/storage.service';
+import { MessageService } from '../../service/message.service';
 
 @Component({
   selector: 'app-register-schedule',
@@ -49,9 +50,9 @@ export class RegisterScheduleComponent implements OnInit, AfterViewInit {
     private vehiclieRefrenceService: VehicleReferenceService,
     private modalService: ModalService,
     private vehicleScheduleService: VehicleScheduleService,
-    private toastService: ToastService,
     private storageService: StorageService,
-    private sharedDataServicec: SharedDataService) {
+    private sharedDataServicec: SharedDataService,
+    private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -67,10 +68,10 @@ export class RegisterScheduleComponent implements OnInit, AfterViewInit {
   }
   public saveSchedule(): void {
     this.vehicleScheduleService.saveSchedule(this.vehicleInfoTo).subscribe((data: VehicleInfoTo) =>{
-      this.toastService.show('Registarion Scucessfull',"info");
+      this.messageService.showMessage('Information','Registarion Successfull',"info");
       this.sharedDataServicec.publish(data) ;
     }, (error: any) =>{
-      this.toastService.show(error.status,"error");
+      this.messageService.handleHttpError(error);
     });
   }
 

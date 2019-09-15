@@ -1,0 +1,12 @@
+<div *ngIf="show"  @toastAnimation [ngClass]="['modal']">
+    <div [ngClass]="['modal-content']">
+        <div [ngClass]="['modal-header',messageType]">
+            {{header}}
+        </div>
+        <div [ngClass]="['modal-body',messageType]">
+        <div *ngFor="let message of messages" [ngClass]="['message-text']">
+            {{message}}
+        </div>
+        </div>
+    </div>
+</div>
