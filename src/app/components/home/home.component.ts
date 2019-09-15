@@ -7,7 +7,6 @@ import { VehicleScheduleService } from '../../service/vehicle-schedule.service';
 import { ActivatedRoute } from '@angular/router';
 import { SharedDataService } from '../../service/share-data.service';
 import { Subscription } from 'rxjs';
-import { HttpErrorHandlerService } from '../../service/http-error-handler.service';
 import { MessageService } from '../../service/message.service';
 
 @Component({
@@ -25,8 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private scheduleService: VehicleScheduleService,
     private route: ActivatedRoute,
     private sharedDataService: SharedDataService,
-    private messageService: MessageService,
-    private errorService: HttpErrorHandlerService) { }
+    private messageService: MessageService) { }
 
   ngOnInit() {
     this.init();
@@ -58,7 +56,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.listOfVehicles.length = 0;
       this.listOfVehicles.push(...data);
     },(error: any)=>{
-      this.errorService.handleError(error);
+      this.messageService.handleHttpError(error);
     });
   }
 }
