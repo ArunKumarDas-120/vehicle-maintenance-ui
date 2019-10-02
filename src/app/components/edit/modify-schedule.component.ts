@@ -47,6 +47,7 @@ export class ModifyScheduleComponent implements OnInit {
     this.scheduleService.saveSchedule(this.vehicle).subscribe((data: VehicleInfoTo) => {
       this.messageService.showMessage('Information','Updation Successfull', "info");
       this.sharedDataService.publish(data);
+	  this.close();
     }, (error: any) => {
       this.messageService.handleHttpError(error);
     });

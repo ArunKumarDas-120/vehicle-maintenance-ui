@@ -16,4 +16,12 @@ export class StorageService{
     public reteriveData(key: string): any{
         return localStorage.getItem(key);
     }
+	
+	public clearStorage(): void{
+		localStorage.clear();
+	}
+	
+	public removeData(key: string): void{
+		localStorage.removeItem(key);
+	}
 }

@@ -9,6 +9,7 @@ import { SharedDataService } from '../../service/share-data.service';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../../service/message.service';
 import { StorageService } from 'src/app/service/storage.service';
+import { LoginService } from 'src/app/service/login.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private sharedDataService: SharedDataService,
     private messageService: MessageService,
-    private storageService: StorageService) { }
+    private storageService: StorageService,
+    private loginService: LoginService) { }
 
   ngOnInit() {
     this.userName = this.storageService.reteriveData("logedUserName");
@@ -62,5 +64,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     },(error: any)=>{
       this.messageService.handleHttpError(error);
     });
+  }
+
+  public logout(): void{
+    this.loginService.logout();
   }
 }
