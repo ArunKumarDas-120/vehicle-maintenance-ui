@@ -2,13 +2,18 @@
   <div class="content-width">
     <div class="header">
       <div class="header-right">
-        <a class="active" (click)="registerVehicleUI()">Add</a>
+        <div class="chip" appPopover [popOverFor]="actions" popOverDirection="bottom"
+         popOverOpenEventType="mouseenter" popOverCloseEventType="anywhere">
+          <img src="/assets/images/img_avatar.png" alt="Person" width="96" height="96">
+          {{userName}}
+        </div>
       </div>
     </div>
     <div [ngClass]="{'flex':true}">
       <section [ngClass]="{'content-align':true}" *ngFor="let vehicle of listOfVehicles">
         <div class="header">
-		<span class="info" >{{vehicle.vehicleNumber}}</span>
+		    <span class="info">{{vehicle.vehicleNumber}}
+        </span>
           <div class="header-right">
             <a class="active" (click)="editVechicleServiceUI(vehicle.vehicleNumber)">Edit</a>
 			      <a class="delete" (click)="removeSchedule(vehicle.vehicleNumber,vehicle.userId)">Delete</a>
@@ -24,3 +29,10 @@
     </div>
   </div>
 </div>
+<app-popover  #actions>
+  <div class="vertical-menu">
+    <a (click)='registerVehicleUI()'>Add</a>
+    <a href="#">Logout</a>
+  </div>
+</app-popover>
+

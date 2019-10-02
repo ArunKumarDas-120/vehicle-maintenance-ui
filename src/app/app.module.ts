@@ -15,6 +15,7 @@ import { ToastComponent } from './components/toast/toast.component';
 import { DateValidator } from './validator/date-validator.directive';
 import { LoginComponent } from './components/login/login.component';
 import { MessageComponent } from './components/message/message.component';
+import { PopoverModule } from './popover/popover.module';
 
 @NgModule({
   declarations: [AppComponent, RegisterScheduleComponent,
@@ -22,7 +23,7 @@ import { MessageComponent } from './components/message/message.component';
     ToastComponent, DateValidator, LoginComponent, MessageComponent],
   imports: [BrowserModule, AppRoutingModule,
     HttpClientModule, FormsModule,
-    ModalModule, BrowserAnimationsModule],
+    ModalModule, BrowserAnimationsModule,PopoverModule],
   providers: [VehicleReferenceService, VehicleScheduleService],
   bootstrap: [AppComponent],
   entryComponents: [ModifyScheduleComponent, RegisterScheduleComponent]

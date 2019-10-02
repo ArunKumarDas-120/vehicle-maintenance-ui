@@ -8,8 +8,7 @@
       <label for="fname"> Password </label>
       <input class="text" [(ngModel)]="loginForm.password" type="password" id="password" name="password"
         placeholder="Enter Password" #spass="ngModel" required>
-      <input type="button" value="SignIn" class="signin-btn btn" (click)="login(signInForm.value)"
-        [disabled]="signInForm.invalid">
+      <input type="button" value="SignIn" class="signin-btn btn" (click)="login(signInForm.value)"  [disabled]="signInForm.invalid">
     </form>
     <form id="registerForm" class="col-50" #registerForm="ngForm">
       <h3>SignUp</h3>
@@ -59,7 +58,7 @@
         </div>
       </div>
       <input type="button" value="SignUp" class="signup-btn btn" (click)="register()"
-        [disabled]="registerForm.invalid">
+        [disabled]="registerForm.invalid" >
     </form>
   </div>
 </div>

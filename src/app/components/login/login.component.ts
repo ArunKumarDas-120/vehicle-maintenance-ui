@@ -30,9 +30,10 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.loginForm).subscribe((data: User) => {
       if (data.userEmail != null) {
         this.storageServive.setData({ key: "logedInuser", data: data.userId });
+        this.storageServive.setData({ key: "logedUserName", data: data.firstName + ' ' + data.lastName });
         this.router.navigate(['/home', data.userId]);
-      }
-      this.messageService.showMessage('Login Failed', 'UserName and Password is Wrong', 'error');
+      } else
+        this.messageService.showMessage('Login Failed', 'UserName and Password is Wrong', 'error');
     }, (error: any) => {
       this.messageService.handleHttpError(error);
     });

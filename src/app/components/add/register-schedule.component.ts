@@ -70,6 +70,7 @@ export class RegisterScheduleComponent implements OnInit, AfterViewInit {
     this.vehicleScheduleService.saveSchedule(this.vehicleInfoTo).subscribe((data: VehicleInfoTo) =>{
       this.messageService.showMessage('Information','Registarion Successfull',"info");
       this.sharedDataServicec.publish(data) ;
+      this.modalService.closeModal();
     }, (error: any) =>{
       this.messageService.handleHttpError(error);
     });

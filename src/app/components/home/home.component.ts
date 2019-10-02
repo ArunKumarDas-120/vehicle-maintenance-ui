@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SharedDataService } from '../../service/share-data.service';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../../service/message.service';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -18,15 +19,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   listOfVehicles: VehicleInfoTo[] = [];
+  userName: string;
   private dataSubscription: Subscription;
 
   constructor(private modal: ModalService,
     private scheduleService: VehicleScheduleService,
     private route: ActivatedRoute,
     private sharedDataService: SharedDataService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private storageService: StorageService) { }
 
   ngOnInit() {
+    this.userName = this.storageService.reteriveData("logedUserName");
     this.init();
     this.dataSubscription = this.sharedDataService.behaviour.subscribe((data: VehicleInfoTo) => {
       this.init();

@@ -16,6 +16,7 @@ export class ModalService {
     private appRef: ApplicationRef) { }
 
   public openModal(component: Type<any>,config: ModalData): void {
+    console.log(this.modalComponentRef);
     const modalComponentFactory = this.componentFactory.resolveComponentFactory(ModalComponent);
     const map = new WeakMap();
     map.set(ModalData, config);
@@ -29,6 +30,7 @@ export class ModalService {
     if (this.modalComponentRef) {
       this.appRef.detachView(this.modalComponentRef.hostView);
       this.modalComponentRef.destroy();
+      this.modalComponentRef = undefined;
     }
   }
 }

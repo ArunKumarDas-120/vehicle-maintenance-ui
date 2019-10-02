@@ -1,5 +1,5 @@
-  
-  body {
+@import '~@angular/cdk/overlay-prebuilt.css';
+ body {
     font-family: Arial;
     font-size: 15px;
     padding: 8px;
