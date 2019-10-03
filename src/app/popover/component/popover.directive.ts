@@ -18,7 +18,8 @@ export class PopoverDirective implements OnDestroy, OnInit{
   @Input("popOverScrollStrategy") popOverScrollStrategy: PopoverTriggerScrollStrategy = "close";
   @Input("popOverOpenEventType") popOverOpenEventType: "click" | "mouseenter";
   @Input("popOverCloseEventType") popOverCloseEventType: "click" | "mouseout" | "anywhere";
-
+  @Input("offsetX") positionX: number = 0;
+  @Input("offsetY") positionY: number = 0;
 
   constructor(
     private overlay: Overlay,
@@ -89,8 +90,8 @@ export class PopoverDirective implements OnDestroy, OnInit{
           { originX: "end", originY: "center" },
           { overlayX: "start", overlayY: "center" }
         )
-        .withOffsetX(1)
-        .withOffsetY(0);
+        .withOffsetX(this.positionX)
+        .withOffsetY(this.positionY);
 
       return this.withFallbackStrategy(strategy);
     } else if (this.popOverDirection === "bottom") {
@@ -101,9 +102,8 @@ export class PopoverDirective implements OnDestroy, OnInit{
           { originX: "center", originY: "bottom" },
           { overlayX: "center", overlayY: "top" }
         )
-        .withOffsetX(0)
-        .withOffsetY(1);
-
+        .withOffsetX(this.positionX)
+        .withOffsetY(this.positionY);
       return this.withFallbackStrategy(strategy);
     } else if (this.popOverDirection === "top") {
       const strategy = this.overlay
@@ -113,8 +113,8 @@ export class PopoverDirective implements OnDestroy, OnInit{
           { originX: "center", originY: "top" },
           { overlayX: "center", overlayY: "bottom" }
         )
-        .withOffsetX(0)
-        .withOffsetY(-1);
+        .withOffsetX(this.positionY)
+        .withOffsetY(this.positionY);
 
       return this.withFallbackStrategy(strategy);
     } else if (this.popOverDirection === "left") {
@@ -125,8 +125,8 @@ export class PopoverDirective implements OnDestroy, OnInit{
           { originX: "start", originY: "center" },
           { overlayX: "end", overlayY: "center" }
         )
-        .withOffsetX(-1)
-        .withOffsetY(0);
+        .withOffsetX(this.positionX)
+        .withOffsetY(this.positionY);
 
       return this.withFallbackStrategy(strategy);
     }

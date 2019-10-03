@@ -3,7 +3,7 @@
     <div class="header">
       <div class="header-right">
         <div class="chip" appPopover [popOverFor]="actions" popOverDirection="bottom"
-         popOverOpenEventType="mouseenter" popOverCloseEventType="anywhere">
+         popOverOpenEventType="mouseenter" popOverCloseEventType="anywhere" [offsetX]="0" [offsetY]="1">
           <img src="/assets/images/img_avatar.png" alt="Person" width="96" height="96">
           {{userName}}
         </div>
