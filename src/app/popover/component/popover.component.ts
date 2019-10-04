@@ -12,8 +12,11 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       transition('* => visible', animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
       transition('* => hidden', animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
     ])
-  ],
+  ],host: {
+    '[@state]': 'visible',
+    '(@state.start)': 'animation()'
+  }
 })
 export class PopoverComponent{
-  @ViewChild(TemplateRef,{static: true}) templateRef: TemplateRef<any>;
+
 }

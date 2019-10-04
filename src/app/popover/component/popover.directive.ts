@@ -1,4 +1,4 @@
-import { Directive, OnDestroy, OnInit, Input, ElementRef, ViewContainerRef, Renderer2, AfterViewInit } from '@angular/core';
+import { Directive, OnDestroy, OnInit, Input, ElementRef, ViewContainerRef, Renderer2, AfterViewInit, TemplateRef, ViewChild, ComponentFactoryResolver, Injector } from '@angular/core';
 import { OverlayRef, Overlay, OverlayConfig, ConnectedPositionStrategy } from "@angular/cdk/overlay";
 import { TemplatePortal } from "@angular/cdk/portal";
 import { PopoverComponent } from './popover.component';
@@ -7,19 +7,19 @@ export declare type PopoverTriggerScrollStrategy = "close" | "reposition";
 @Directive({
   selector: '[appPopover]'
 })
-export class PopoverDirective implements OnDestroy, OnInit{
- 
+export class PopoverDirective implements OnDestroy, OnInit {
+
   private overlayRef: OverlayRef;
   private portal: TemplatePortal<any>;
   private destroyed: boolean = false;
 
-  @Input("popOverFor") popOver: PopoverComponent;
   @Input("popOverDirection") popOverDirection: PopoverDirection = "right";
   @Input("popOverScrollStrategy") popOverScrollStrategy: PopoverTriggerScrollStrategy = "close";
   @Input("popOverOpenEventType") popOverOpenEventType: "click" | "mouseenter";
   @Input("popOverCloseEventType") popOverCloseEventType: "click" | "mouseout" | "anywhere";
   @Input("offsetX") positionX: number = 0;
   @Input("offsetY") positionY: number = 0;
+  @Input("popOverContent") template: TemplateRef<any>;
 
   constructor(
     private overlay: Overlay,
@@ -36,10 +36,10 @@ export class PopoverDirective implements OnDestroy, OnInit{
     }
 
     if (this.popOverCloseEventType) {
-      this.rendrer.listen(this.popOverCloseEventType ==='anywhere'?'document':this.elementRef.nativeElement, 
-      this.popOverCloseEventType ==='anywhere'?'click':this.popOverCloseEventType, (evt) => {
-        this.closeTooltip();
-      });
+      this.rendrer.listen(this.popOverCloseEventType === 'anywhere' ? 'document' : this.elementRef.nativeElement,
+        this.popOverCloseEventType === 'anywhere' ? 'click' : this.popOverCloseEventType, (evt) => {
+          this.closeTooltip();
+        });
     }
 
   }
@@ -63,12 +63,12 @@ export class PopoverDirective implements OnDestroy, OnInit{
   private createOverlay(): OverlayRef {
     if (!this.overlayRef) {
       this.portal = new TemplatePortal(
-        this.popOver.templateRef,
+        this.template,
         this.viewContainerRef
       );
       const overlayState = new OverlayConfig();
       overlayState.positionStrategy = this.getPosition();;
-      
+
       if (this.popOverScrollStrategy === "reposition") {
         overlayState.scrollStrategy = this.overlay.scrollStrategies.reposition();
       } else {

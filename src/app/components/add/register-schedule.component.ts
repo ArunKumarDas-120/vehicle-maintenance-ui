@@ -20,13 +20,13 @@ import { MessageService } from '../../service/message.service';
   styleUrls: ['./register-schedule.component.css'],
   animations: [
     trigger('addAnimation', [
-      state('in', style({opacity: 1})),
+      state('in', style({ opacity: 1 })),
       transition(':enter', [
-        style({opacity: 0}),
+        style({ opacity: 0 }),
         animate('600ms ease-in')
       ]),
       transition(':leave',
-        animate('600ms ease-out', style({opacity: 0})))
+        animate('600ms ease-out', style({ opacity: 0 })))
     ])
   ]
 })
@@ -36,9 +36,9 @@ export class RegisterScheduleComponent implements OnInit, AfterViewInit {
   private tabs: QueryList<ElementRef>;
   @ViewChildren('circle')
   private circletab: QueryList<ElementRef>;
-  @ViewChild('prevBtn', { read: ElementRef, static: false }) 
+  @ViewChild('prevBtn', { read: ElementRef, static: false })
   private previousButton: ElementRef;
-  
+
 
   vehicleInfoTo: VehicleInfoTo = new VehicleInfoTo();
   companyList: VehicleCompany[] = [];
@@ -67,11 +67,11 @@ export class RegisterScheduleComponent implements OnInit, AfterViewInit {
     this.vehicleInfoTo.userId = this.storageService.reteriveData("logedInuser");
   }
   public saveSchedule(): void {
-    this.vehicleScheduleService.saveSchedule(this.vehicleInfoTo).subscribe((data: VehicleInfoTo) =>{
-      this.messageService.showMessage('Information','Registarion Successfull',"info");
-      this.sharedDataServicec.publish(data) ;
+    this.vehicleScheduleService.saveSchedule(this.vehicleInfoTo).subscribe((data: VehicleInfoTo) => {
+      this.messageService.showMessage('Information', 'Registarion Successfull', "info");
+      this.sharedDataServicec.publish(data);
       this.modalService.closeModal();
-    }, (error: any) =>{
+    }, (error: any) => {
       this.messageService.handleHttpError(error);
     });
   }
