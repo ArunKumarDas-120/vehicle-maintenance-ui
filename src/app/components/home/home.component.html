@@ -2,8 +2,8 @@
   <div class="content-width">
     <div class="header">
       <div class="header-right">
-        <div class="chip" appPopover [popOverFor]="actions" popOverDirection="bottom"
-         popOverOpenEventType="mouseenter" popOverCloseEventType="anywhere" [offsetX]="0" [offsetY]="1">
+        <div class="chip"  appPopover [popOverFor]="actions" popOverDirection="bottom"
+          popOverOpenEventType="mouseenter" popOverCloseEventType="anywhere" [offsetX]="0" [offsetY]="1">
           <img src="/assets/images/img_avatar.png" alt="Person" width="96" height="96">
           {{userName}}
         </div>
@@ -29,10 +29,12 @@
     </div>
   </div>
 </div>
-<app-popover  #actions>
+<app-popover #actions>
   <div class="vertical-menu">
     <a (click)='registerVehicleUI()'>Add</a>
     <a (click)='logout()'>Logout</a>
   </div>
 </app-popover>
+
+
 

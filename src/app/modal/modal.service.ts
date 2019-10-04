@@ -16,7 +16,7 @@ export class ModalService {
     private appRef: ApplicationRef) { }
 
   public openModal(component: Type<any>,config: ModalData): void {
-    console.log(this.modalComponentRef);
+    if(!this.modalComponentRef){
     const modalComponentFactory = this.componentFactory.resolveComponentFactory(ModalComponent);
     const map = new WeakMap();
     map.set(ModalData, config);
@@ -25,6 +25,7 @@ export class ModalService {
     const domElem = (this.modalComponentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     document.body.appendChild(domElem);
     this.modalComponentRef.instance.setChildComponent(component);
+    }
   }
   public closeModal(): void {
     if (this.modalComponentRef) {

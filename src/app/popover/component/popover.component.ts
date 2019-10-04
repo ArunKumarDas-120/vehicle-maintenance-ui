@@ -15,5 +15,5 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   ],
 })
 export class PopoverComponent{
-  @ViewChild(TemplateRef,{static: false}) templateRef: TemplateRef<any>;
+  @ViewChild(TemplateRef,{static: true}) templateRef: TemplateRef<any>;
 }

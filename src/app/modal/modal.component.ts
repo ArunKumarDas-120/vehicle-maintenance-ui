@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, Type, ChangeDetectorRef, ComponentFactoryResolver, ViewChild, ComponentRef } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, Type, ChangeDetectorRef, ComponentFactoryResolver, ViewChild, ComponentRef, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ModalDirective } from './modal.directive';
 
 @Component({

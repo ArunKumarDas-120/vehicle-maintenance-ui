@@ -90,6 +90,7 @@ section.content-align {
     line-height: 50px;
     border-radius: 25px;
     background-color: #f1f1f1;
+     cursor: pointer;
   }
   
   .chip img {
@@ -101,13 +102,14 @@ section.content-align {
   }
   .vertical-menu {
     width: 200px;
+    cursor: pointer;
   }
   
   .vertical-menu a {
-    background-color: #eee;
-    color: black;
+    background-color: #555555;
+    color: white;
     display: block;
-    padding: 12px;
+    padding: 14px;
     text-decoration: none;
   }
   
