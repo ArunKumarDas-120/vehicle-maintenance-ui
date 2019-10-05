@@ -4,7 +4,7 @@ import { RegisterScheduleComponent } from '../add/register-schedule.component';
 import { ModifyScheduleComponent } from '../edit/modify-schedule.component';
 import { VehicleInfoTo } from '../../model/vehicle-info';
 import { VehicleScheduleService } from '../../service/vehicle-schedule.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SharedDataService } from '../../service/share-data.service';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../../service/message.service';
@@ -29,7 +29,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private sharedDataService: SharedDataService,
     private messageService: MessageService,
     private storageService: StorageService,
-    private loginService: LoginService) { }
+    private loginService: LoginService,
+    private router: Router) { }
 
   ngOnInit() {
     this.userName = this.storageService.reteriveData("logedUserName");
@@ -68,5 +69,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public logout(): void{
     this.loginService.logout();
+    this.router.navigate(['/login']);
   }
 }

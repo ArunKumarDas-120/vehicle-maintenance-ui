@@ -1,7 +1,8 @@
-import { Directive, OnDestroy, OnInit, Input, ElementRef, ViewContainerRef, Renderer2, AfterViewInit, TemplateRef, ViewChild, ComponentFactoryResolver, Injector } from '@angular/core';
+import { Directive, OnDestroy, OnInit, Input, ElementRef, ViewContainerRef, Renderer2, TemplateRef, Injector } from '@angular/core';
 import { OverlayRef, Overlay, OverlayConfig, ConnectedPositionStrategy } from "@angular/cdk/overlay";
-import { TemplatePortal } from "@angular/cdk/portal";
+import { ComponentPortal } from "@angular/cdk/portal";
 import { PopoverComponent } from './popover.component';
+import { DataInjector } from './data-Injector';
 export declare type PopoverDirection = "left" | "top" | "right" | "bottom";
 export declare type PopoverTriggerScrollStrategy = "close" | "reposition";
 @Directive({
@@ -10,9 +11,7 @@ export declare type PopoverTriggerScrollStrategy = "close" | "reposition";
 export class PopoverDirective implements OnDestroy, OnInit {
 
   private overlayRef: OverlayRef;
-  private portal: TemplatePortal<any>;
-  private destroyed: boolean = false;
-
+  private portal: ComponentPortal<any>;
   @Input("popOverDirection") popOverDirection: PopoverDirection = "right";
   @Input("popOverScrollStrategy") popOverScrollStrategy: PopoverTriggerScrollStrategy = "close";
   @Input("popOverOpenEventType") popOverOpenEventType: "click" | "mouseenter";
@@ -25,7 +24,8 @@ export class PopoverDirective implements OnDestroy, OnInit {
     private overlay: Overlay,
     private elementRef: ElementRef,
     private viewContainerRef: ViewContainerRef,
-    private rendrer: Renderer2
+    private rendrer: Renderer2,
+    private injector: Injector
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +45,12 @@ export class PopoverDirective implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    this.destroyed = true;
+    this.closeTooltip();
+    if (this.overlayRef)
+      this.overlayRef = undefined;
+    if (this.portal)
+      this.portal = undefined;
+    
   }
 
   private openTooltip(): void {
@@ -62,10 +67,9 @@ export class PopoverDirective implements OnDestroy, OnInit {
 
   private createOverlay(): OverlayRef {
     if (!this.overlayRef) {
-      this.portal = new TemplatePortal(
-        this.template,
-        this.viewContainerRef
-      );
+      const map = new WeakMap();
+      map.set(TemplateRef, this.template);
+      this.portal =  new ComponentPortal(PopoverComponent,this.viewContainerRef,new DataInjector(this.injector,map));
       const overlayState = new OverlayConfig();
       overlayState.positionStrategy = this.getPosition();;
 
@@ -131,11 +135,8 @@ export class PopoverDirective implements OnDestroy, OnInit {
       return this.withFallbackStrategy(strategy);
     }
   }
-  private withFallbackStrategy(
-    strategy: ConnectedPositionStrategy
-  ): ConnectedPositionStrategy {
-    strategy
-      .withFallbackPosition(
+  private withFallbackStrategy(strategy: ConnectedPositionStrategy): ConnectedPositionStrategy {
+    strategy.withFallbackPosition(
         { originX: "center", originY: "bottom" },
         { overlayX: "center", overlayY: "top" },
         0,
@@ -183,8 +184,6 @@ export class PopoverDirective implements OnDestroy, OnInit {
         0,
         -1
       );
-
     return strategy;
   }
-
 }

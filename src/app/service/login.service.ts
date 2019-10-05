@@ -5,7 +5,6 @@ import { User } from '../model/user';
 import { SignUp } from '../model/sign-up';
 import { UserCredential } from '../model/user-credential';
 import { StorageService } from './storage.service';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +14,7 @@ export class LoginService {
   private baseUrl: string ="http://localhost:4002/user/";
 
   constructor(private http: HttpClient,
-    private storageServive: StorageService,
-    private router: Router) { }
+    private storageServive: StorageService) { }
 
   public register(signupData: SignUp): Observable<User>{
     return this.http.post<User>(this.baseUrl+"signup",signupData);
@@ -28,6 +26,5 @@ export class LoginService {
   
   public logout(): void{
 	  this.storageServive.clearStorage();
-	   this.router.navigate(['/'])
   }
 }
