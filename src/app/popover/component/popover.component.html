@@ -1,5 +1,5 @@
 <div [@state]="'visible'">
-  <div class="tooltip_content">
+  <div [ngClass]="[!styleCalsses ? 'tooltip_content' : styleCalsses]">
     <span>
       <ng-template appDataPoint></ng-template>
     </span>

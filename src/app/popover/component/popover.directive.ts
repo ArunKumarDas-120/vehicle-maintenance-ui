@@ -3,6 +3,7 @@ import { OverlayRef, Overlay, OverlayConfig, ConnectedPositionStrategy } from "@
 import { ComponentPortal } from "@angular/cdk/portal";
 import { PopoverComponent } from './popover.component';
 import { DataInjector } from './data-Injector';
+import { PopoverConfigData } from './popover-config-data';
 export declare type PopoverDirection = "left" | "top" | "right" | "bottom";
 export declare type PopoverTriggerScrollStrategy = "close" | "reposition";
 @Directive({
@@ -13,6 +14,7 @@ export class PopoverDirective implements OnDestroy, OnInit {
   private overlayRef: OverlayRef;
   private portal: ComponentPortal<any>;
   @Input("popOverDirection") popOverDirection: PopoverDirection = "right";
+  @Input("popOverClasses") popOverClasses?: string;
   @Input("popOverScrollStrategy") popOverScrollStrategy: PopoverTriggerScrollStrategy = "close";
   @Input("popOverOpenEventType") popOverOpenEventType: "click" | "mouseenter";
   @Input("popOverCloseEventType") popOverCloseEventType: "click" | "mouseout" | "anywhere";
@@ -68,7 +70,7 @@ export class PopoverDirective implements OnDestroy, OnInit {
   private createOverlay(): OverlayRef {
     if (!this.overlayRef) {
       const map = new WeakMap();
-      map.set(TemplateRef, this.template);
+      map.set(PopoverConfigData, new PopoverConfigData(this.template,this.popOverClasses));
       this.portal =  new ComponentPortal(PopoverComponent,this.viewContainerRef,new DataInjector(this.injector,map));
       const overlayState = new OverlayConfig();
       overlayState.positionStrategy = this.getPosition();;

@@ -1,6 +1,7 @@
 import { Component, ViewChild, TemplateRef, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { DataPointDirective } from './data-point.directive';
+import { PopoverConfigData } from './popover-config-data';
 
 @Component({
   selector: 'app-popover',
@@ -20,9 +21,11 @@ export class PopoverComponent implements AfterViewInit, OnDestroy {
   @ViewChild(DataPointDirective, { static: true })
   private insertionPoint: DataPointDirective;
   private template: TemplateRef<any>;
-
-  constructor(template: TemplateRef<any>, private cd: ChangeDetectorRef) {
-    this.template = template;
+  private styleCalsses: string;
+  
+  constructor(private config: PopoverConfigData, private cd: ChangeDetectorRef) {
+    this.template = config.template;
+    this.styleCalsses = config.styleClasses;
   }
   ngAfterViewInit(): void {
     this.insertionPoint.viewContainerRef.clear();
