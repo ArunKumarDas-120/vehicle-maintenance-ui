@@ -16,17 +16,17 @@ export class DateValidator implements Validator {
     }
     else {
       let currentDate = new Date();
-      let controlDate = new Date(control.value);
-	  if(controlDate.getFullYear() > currentDate.getFullYear())
-		   return [{ "invalidDate": true }];
-	  if(controlDate.getFullYear() == currentDate.getFullYear()){ 
-		  if(controlDate.getMonth() > currentDate.getMonth()){
-			  return [{ "invalidDate": true }]; 
-		  }  
-		  if((controlDate.getMonth() == currentDate.getMonth()) && (controlDate.getDate() > currentDate.getDate())){
-			   return [{ "invalidDate": true }]; 
-		  }
-	  }
+      let controlDate = new Date("\""+control.value+"\"");
+      if (controlDate.getFullYear() > currentDate.getFullYear())
+        return [{ "invalidDate": true }];
+      if (controlDate.getFullYear() == currentDate.getFullYear()) {
+        if (controlDate.getMonth() > currentDate.getMonth()) {
+          return [{ "invalidDate": true }];
+        }
+        if ((controlDate.getMonth() == currentDate.getMonth()) && (controlDate.getDate() > currentDate.getDate())) {
+          return [{ "invalidDate": true }];
+        }
+      }
     }
     return null
   }
